@@ -21,6 +21,38 @@ bool isKaprekar(long long n) {
     return (left + right == n);
 }
 
+
+// void kaprekarNumbers(int p, int q) {
+//     vector<long long> ans;
+
+//     for(long long i = p; i <= q; i++){
+//         long long sq = i * i;
+//         string s = to_string(sq);
+
+//         int d = s.length();
+//         int split = d / 2;
+
+//         string left = s.substr(0, split);
+//         string right = s.substr(split);
+
+//         long long L = (left == "") ? 0 : stoll(left);
+//         long long R = (right == "") ? 0 : stoll(right);
+
+//         if (L + R == i) {
+//             ans.push_back(i);
+//         }
+//     }
+
+//     if(ans.empty()) {
+//         cout << "INVALID RANGE";
+//     } else {
+//         for(int i=0; i<ans.size(); i++){
+//             cout << ans[i] << " ";
+//         }
+//     }
+
+// }
+
 int main() {
     vector<long long> kaprekarNumbers;
 
