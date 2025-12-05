@@ -18,7 +18,7 @@ int beautifulTriplets(int d, vector<int> arr) {
 
 int main(){
 int d=1;
- vector<int> arr = {1 2 4 5 7 8 10 };
+ vector<int> arr = {1 ,2 ,4, 5, 7, 8, 10 };
 cout<<beautifulTriplets( d, arr);
 
     return 0;
