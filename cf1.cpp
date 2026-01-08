@@ -5,31 +5,24 @@ using namespace std;
 int main() {
     //1
    vector<int> arr = {0,1,0,1,0,0};
-   int l=0,r=l+1;
-   while(r<6){
-       if((arr[l]==1) && (arr[r] == 1)){
-           
-           arr[r]=0;
-           cout<<arr[r]<<endl;
-           r++;
-           l++;
-       }
-       else{
-          arr[r]=1;
-           
-           r++;
-           l++; 
-       }
-   }
-if(arr[l]==1) cout<<"bob";
-else cout<<"alice";
+  int zeros = 0;
+for(int x : arr) if(x == 0) zeros++;
+
+if(zeros % 2) cout << "Alice";
+else cout << "Bob";
+
 
 
 //2
    vector<int> arr = {0 ,1 ,2 ,1 ,0};
-   int n = arr.size(),k=2;
-   int operations = n - k + 1;
-   cout<< n-operations;
+   vector<int> cnt(n+1,0);
+for(int x : arr) cnt[x]++;
+
+int mex = 0;
+while(cnt[mex] >= k) mex++;
+
+cout << mex;
+
 
 
    //3
