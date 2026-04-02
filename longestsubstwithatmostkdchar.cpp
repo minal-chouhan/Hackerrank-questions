@@ -33,7 +33,7 @@ int main() {
        map[s[i]-'a']++;
        if(map.size()>k){
            
-           map[l]--;
+           map[s[l]-'a']--;
            if(map[l]==0){
                map.erase(map[s[l]-'a']);
            }
