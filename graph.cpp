@@ -42,6 +42,47 @@ class Graph{
      }
 
 } 
+void dfshelper(int u,vector<int> &arr){//O(V+E)
+    cout << u << " ";
+    arr[u] = true;
+    for(int val : l[u]){
+        if(!arr[val]){
+            dfshelper(val,arr);
+        }
+    }
+
+}
+void dfs(){
+    int src=0;
+    vector<int> arr(v,false);
+    dfshelper(src,arr);
+}
+bool iscyclehelper(int src, int par, vector<bool> &vis){
+    vis[src] = true;
+
+    for(int val : l[src]){
+        if(!vis[val]){
+            if(iscyclehelper(val, src, vis)) return true;
+        }
+        else if(val != par){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool iscycle(){
+    vector<bool> vis(v,false);
+    for(int i=0; i<v; i++){
+        if(!vis[i]){
+            if(iscyclehelper(i, -1, vis)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 };
 
 int main(){
@@ -49,9 +90,15 @@ int main(){
     g.addEdge(0,1);
     g.addEdge(1,2);
     g.addEdge(1,3);
-    g.addEdge(2,3);
+   
     g.addEdge(2,4);
     g. printadjlist();
+    cout<<"bfs:"<<" ";
     g.bfs();
+    cout<<endl;
+    cout<<"dfs:"<<" ";
+    g.dfs();
+    cout<<endl;
+    cout<<g.iscycle();
     return 0;
 }
