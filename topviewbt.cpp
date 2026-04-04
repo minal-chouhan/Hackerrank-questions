@@ -53,17 +53,26 @@ void kthlevel(Node* root, int k){
         return ;
     }
     if(k==1){
-        cout<<root->data <<" ";
+       // cout<<root->data <<" ";
     }
     kthlevel(root->left,k-1);
     kthlevel(root->right,k-1);
 
 }
-
+int sumtree(Node* root){
+    
+    if(root == NULL) return 0;
+    int left1 = sumtree(root->left);
+    int right1 = sumtree(root->right);
+    root->data += left1+right1;
+    return root->data;
+}
 int main() {
   vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,-1,-1};
   Node* root = buildtree(preorder);
+  Node* curr = root;
   topView(root);
   kthlevel(root,2);
+ cout<< sumtree(curr);
     return 0;
 }
