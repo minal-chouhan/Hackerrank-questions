@@ -42,7 +42,7 @@ class Graph{
      }
 
 } 
-void dfshelper(int u,vector<int> &arr){//O(V+E)
+void dfshelper(int u,vector<bool> &arr){//O(V+E)
     cout << u << " ";
     arr[u] = true;
     for(int val : l[u]){
@@ -54,7 +54,7 @@ void dfshelper(int u,vector<int> &arr){//O(V+E)
 }
 void dfs(){
     int src=0;
-    vector<int> arr(v,false);
+    vector<bool> arr(v,false);
     dfshelper(src,arr);
 }
 bool iscyclehelper(int src, int par, vector<bool> &vis){
@@ -82,7 +82,39 @@ bool iscycle(){
     }
     return false;
 }
+bool iscyclebfshelp(int src,  vector<bool> &vis){
+queue<pair<int,int>> q;
+q.push({src,-1});
+vis[src]=true;
+while(!q.empty()){
+    int m = q.front().first; 
+    int mpar = q.front().second;
+    q.pop();
 
+for(int v : l[m]){
+  
+    if(!vis[v]){
+      vis[v]=true;
+      q.push({v,m});
+    }
+    else if(mpar!=v){
+        return true;
+    }
+}
+}
+return false;
+}
+bool iscyclebfs(){
+vector<bool> vis(v,false);
+    for(int i=0; i<v; i++){
+        if(!vis[i]){
+            if(iscyclebfshelp(i, vis)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 };
 
 int main(){
@@ -100,5 +132,7 @@ int main(){
     g.dfs();
     cout<<endl;
     cout<<g.iscycle();
+    cout<<endl;
+    cout<<g.iscyclebfs();
     return 0;
 }
