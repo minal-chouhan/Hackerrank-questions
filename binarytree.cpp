@@ -71,12 +71,41 @@ int sumNodes(Node* root){
     int right1 = sumNodes(root->right);
     return (left1+right1+root->data);
 }
+void findpath(Node* root, vector<vector<int>> &ans, vector<int>& temp){
+    if(root == NULL){
+        return;
+    }
+
+    // add current node
+    temp.push_back(root->data);
+
+    // check leaf node
+    if(root->left == NULL && root->right == NULL){
+        ans.push_back(temp);
+    } 
+    else {
+        findpath(root->left, ans, temp);
+        findpath(root->right, ans, temp);
+    }
+
+    // backtrack
+    temp.pop_back();
+}
 int main() {
   vector<int> preorder = {1,2,-1,-1,3,4,-1,-1,5,-1,-1};
   Node* root = buildtree(preorder);
   levelorder(root);
   height(root);
-  countNodes(root);
-  cout<<sumNodes(root);
+ // countNodes(root);
+ // cout<<sumNodes(root);
+ vector<int> temp;
+ vector<vector<int>> ans;
+findpath(root,ans,temp);
+for(int i=0; i<ans.size(); i++){
+    for(int j=0; j<ans[i].size();j++){
+        cout<<ans[i][j]<<" ";
+    }
+    cout<<endl;
+}
     return 0;
 }
