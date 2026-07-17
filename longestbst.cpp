@@ -1,4 +1,7 @@
-#include <bits/stdc++.h>
+
+#include <iostream>
+#include <climits>
+#include <algorithm>
 using namespace std;
 class Node{
     public:
@@ -13,17 +16,20 @@ class Node{
 class Info{
     public:
     int max;
-    int min;
+    int min; 
     int sz;
-    Info(int mi,int ma, int siz){
+    int sums;
+    Info(int mi,int ma, int siz,int sum){
         max= ma;
         min= mi;
         sz= siz;
+        sums= sum;
     }
 };
+int maxsum=0;
 Info helper(Node* root){
     if(root == NULL){
-        return Info(INT_MAX,INT_MIN,0);
+        return Info(INT_MAX,INT_MIN,0,0);
     }
     Info left = helper(root->left);
     Info right = helper(root->right);
@@ -32,15 +38,18 @@ Info helper(Node* root){
         int currmin = min(root->data,left.min);
         int currmax = max(root->data,right.max);
         int cursz = left.sz+right.sz+1;
-        return Info(currmin,currmax,cursz);
+        int csum = left.sums+right.sums+root->data;
+        maxsum = max(maxsum,csum);
+        return Info(currmin,currmax,cursz,csum);
     }
-    return Info(INT_MIN,INT_MAX,max(right.sz,left.sz));
+    return Info(INT_MIN,INT_MAX,max(right.sz,left.sz),0);
 
 
 }
 int largestbst(Node* root){
-    Info info = helper(root);
-    return info.sz; 
+    maxsum = INT_MIN;
+    helper(root);
+    return maxsum == INT_MIN ? 0 : maxsum;
 }
 int main(){
 Node* root = new Node(10);
